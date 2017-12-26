@@ -1,6 +1,11 @@
 ## Unreleased
 
 
+## 0.2.1
+
+- Support iOS 9 or higher.
+
+
 ## 0.2.0
 
 - Add the default implementation of `Entity` for `Hashable`.
