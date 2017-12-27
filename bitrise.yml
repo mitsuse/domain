@@ -1,0 +1,29 @@
+format_version: 1.4.0
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+workflows:
+  deploy:
+    after_run:
+    - ensure_clean
+    - lint_spec
+    - push_spec
+  build:
+    after_run:
+    - lint_spec
+  push_spec:
+    steps:
+    - script@1.1.3:
+        title: 'pod repo push'
+        inputs:
+        - content: pod repo push ${NAME_POD_REPO} ${NAME_POD}.podspec --allow-warnings
+  lint_spec:
+    steps:
+    - script@1.1.3:
+        title: 'pod lib lint'
+        inputs:
+        - content: |-
+            pod lib lint ${NAME_POD}.podspec \
+            --allow-warnings \
+            --sources="https://github.com/CocoaPods/Specs.git,git@github.com:${NAME_POD_REPO}/pods.git"
+  ensure_clean:
+    steps:
+    - ensure-clean-git@0.9.1:
