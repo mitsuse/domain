@@ -11,7 +11,9 @@ public protocol Entity: Hashable where Id: Domain.Id {
 }
 
 extension Entity {
-    public var hashValue: Int { return id.hashValue }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 public func == <Entity: Domain.Entity>(_ x: Entity, _ y: Entity) -> Bool {

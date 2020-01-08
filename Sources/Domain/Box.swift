@@ -5,7 +5,9 @@ public protocol Box: Value {
 }
 
 extension Box {
-    public var hashValue: Int { return value.hashValue }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(value)
+    }
 }
 
 public func == <Box: Domain.Box>(_ x: Box, _ y: Box) -> Bool {
