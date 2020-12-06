@@ -1,13 +1,17 @@
-public protocol Value: Hashable {
-}
-
 public protocol Id: Hashable {
 }
 
-public protocol Entity: Hashable where Id: Domain.Id {
-    associatedtype Id
+public struct Entity<Id, Property>: Hashable where Id: Domain.Id {
+    public let id: Id
+    public let property: Property?
 
-    var id: Id { get }
+    public init(
+        id: Id,
+        property: Property?
+    ) {
+        self.id = id
+        self.property = property
+    }
 }
 
 extension Entity {
@@ -16,6 +20,6 @@ extension Entity {
     }
 }
 
-public func == <Entity: Domain.Entity>(_ x: Entity, _ y: Entity) -> Bool {
+public func == <Id, Property>(_ x: Entity<Id, Property>, _ y: Entity<Id, Property>) -> Bool {
     return x.id == y.id
 }

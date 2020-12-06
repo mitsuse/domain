@@ -1,5 +1,7 @@
 ## Unreleased
 
+- `Entity` became concrete type because of the separatability between id and property.
+
 
 ## 0.2.1
 
